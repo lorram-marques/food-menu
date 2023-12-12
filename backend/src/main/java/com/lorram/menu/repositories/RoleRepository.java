@@ -3,11 +3,9 @@ package com.lorram.menu.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.lorram.menu.entities.User;
+import com.lorram.menu.entities.Role;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-	
-	User findByEmail(String email);
-	
+public interface RoleRepository extends JpaRepository<Role, Long> {
+
 }

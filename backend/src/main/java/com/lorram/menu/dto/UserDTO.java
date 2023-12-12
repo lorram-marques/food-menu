@@ -9,6 +9,7 @@ public class UserDTO implements Serializable {
 
 	private Long id;
 	private String name;
+	private String email;
 	
 	public UserDTO(Long id, String name) {
 		this.id = id;
@@ -18,6 +19,7 @@ public class UserDTO implements Serializable {
 	public UserDTO(User entity) {
 		id = entity.getId();
 		name = entity.getName();
+		email = entity.getEmail();
 	}
 
 	public Long getId() {
@@ -34,5 +36,13 @@ public class UserDTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
