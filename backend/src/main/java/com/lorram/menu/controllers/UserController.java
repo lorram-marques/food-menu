@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lorram.menu.dto.UserDTO;
+import com.lorram.menu.dto.UserInsertDTO;
 import com.lorram.menu.services.UserService;
 
 @RestController
@@ -39,7 +40,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> insert(@RequestBody UserDTO dto) {
+	public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO dto) {
 		UserDTO user = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
 		return ResponseEntity.created(uri).body(user);
