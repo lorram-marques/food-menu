@@ -18,8 +18,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.lorram.menu.components.JwtTokenEnhancer;
 
-
-
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
