@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,7 +26,9 @@ public class Review {
 	private User user;
 	
 	@ManyToOne
-	@JoinColumn(name = "meal_id")
+	@JoinTable(name = "tb_review_meal",
+		joinColumns = @JoinColumn(name = "review_id"),
+		inverseJoinColumns = @JoinColumn(name = "meal_id"))	
 	private Meal meal;
 	
 	public Review() {

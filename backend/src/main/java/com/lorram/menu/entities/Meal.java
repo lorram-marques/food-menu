@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ public class Meal {
 	private String name;
 	private String description;
 	
-	@OneToMany(mappedBy = "menu")
+	@OneToMany(mappedBy = "meal", fetch = FetchType.EAGER)
 	private List<Review> reviews = new ArrayList<>();
 	
 	public Meal() {
@@ -55,6 +56,10 @@ public class Meal {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public List<Review> getReviews() {
+		return reviews;
 	}
 
 	@Override
