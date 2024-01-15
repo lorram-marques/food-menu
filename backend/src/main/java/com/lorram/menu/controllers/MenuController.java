@@ -19,14 +19,21 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lorram.menu.dto.MealDTO;
 import com.lorram.menu.dto.ReviewDTO;
+import com.lorram.menu.entities.Meal;
 import com.lorram.menu.services.MealService;
+import com.lorram.menu.services.ReviewService;
 
 @RestController
 @RequestMapping(value = "/menu")
-public class MealController {
+public class MenuController {
 	
 	@Autowired
 	private MealService service;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	// Meal controller
 	
 	@GetMapping
 	public ResponseEntity<Page<MealDTO>> findAll(Pageable pageable) {
@@ -36,21 +43,21 @@ public class MealController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<MealDTO> findById(@PathVariable Long id) {
-		MealDTO Meal = service.findById(id);
-		return ResponseEntity.ok().body(Meal);
+		MealDTO meal = service.findById(id);
+		return ResponseEntity.ok().body(meal);
 	}
 	
 	@PostMapping
 	public ResponseEntity<MealDTO> insert(@RequestBody MealDTO dto) {
-		MealDTO Meal = service.insert(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(Meal.getId()).toUri();
-		return ResponseEntity.created(uri).body(Meal);
+		MealDTO meal = service.insert(dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(meal.getId()).toUri();
+		return ResponseEntity.created(uri).body(meal);
 	}
 	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<MealDTO> update(@PathVariable Long id, @RequestBody MealDTO dto) {
-		MealDTO Meal = service.update(id, dto);
-		return ResponseEntity.ok().body(Meal);
+		MealDTO meal = service.update(id, dto);
+		return ResponseEntity.ok().body(meal);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -65,4 +72,36 @@ public class MealController {
 		return ResponseEntity.ok().body(reviews);
 	}
 	
+	// Review controller
+	
+	@GetMapping(value = "/reviews") // <--- admin only 
+	public ResponseEntity<Page<ReviewDTO>> findAllReviews(Pageable pageable) {
+		Page<ReviewDTO> page = reviewService.findAll(pageable);
+		return ResponseEntity.ok().body(page);
+		}
+	
+	@GetMapping(value = "/reviewid/{id}")
+	public ResponseEntity<ReviewDTO> findReviewById(@PathVariable Long id) {
+		ReviewDTO review = reviewService.findById(id);
+		return ResponseEntity.ok().body(review);
+	} 
+	
+	@PostMapping(value = "/{id}/reviews")
+	public ResponseEntity<ReviewDTO> insertReview(@PathVariable Long id, @RequestBody ReviewDTO dto) {
+		ReviewDTO review = reviewService.insert(id, dto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(review.getId()).toUri();
+		return ResponseEntity.created(uri).body(review);
+	}
+	
+	@PutMapping(value = "/reviewid/{id}")
+	public ResponseEntity<ReviewDTO> updateReview(@PathVariable Long id, @RequestBody ReviewDTO dto) {
+		ReviewDTO review = reviewService.update(id, dto);
+		return ResponseEntity.ok().body(review);
+	}
+	
+	@DeleteMapping(value = "/reviewid/{id}")
+	public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
+		reviewService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
 }

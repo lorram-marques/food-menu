@@ -29,23 +29,23 @@ public class MealService{
 	
 	public MealDTO findById(Long id) {
 		Optional<Meal> entity = repository.findById(id);
-		Meal Meal = entity.orElseThrow(() -> new ResourceNotFoundException(id));
-		MealDTO dto = new MealDTO(Meal);
+		Meal meal = entity.orElseThrow(() -> new ResourceNotFoundException(id));
+		MealDTO dto = new MealDTO(meal);
 		return dto;
 	}
 	
 	public MealDTO insert(MealDTO dto) {
-		Meal Meal = new Meal();
-		fromDto(dto, Meal);
-		repository.save(Meal);
-		return new MealDTO(Meal);
+		Meal meal = new Meal();
+		fromDto(dto, meal);
+		repository.save(meal);
+		return new MealDTO(meal);
 	}
 	
 	public MealDTO update(Long id, MealDTO dto) {
-		Meal Meal = repository.getOne(id);
-		fromDto(dto, Meal);
-		Meal = repository.save(Meal);
-		return new MealDTO(Meal);
+		Meal meal = repository.getOne(id);
+		fromDto(dto, meal);
+		meal = repository.save(meal);
+		return new MealDTO(meal);
 	}
 	
 	public void delete(Long id) {
@@ -64,7 +64,7 @@ public class MealService{
 		return list;
 	}
 	
-	private void fromDto(MealDTO MealDto, Meal Meal) {
-		Meal.setName(MealDto.getName());
+	private void fromDto(MealDTO mealDto, Meal meal) {
+		meal.setName(mealDto.getName());
 	}
 }

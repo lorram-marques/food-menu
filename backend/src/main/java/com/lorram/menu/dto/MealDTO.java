@@ -1,5 +1,6 @@
 package com.lorram.menu.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lorram.menu.entities.Meal;
@@ -11,7 +12,7 @@ public class MealDTO {
 	private String name;
 	private String description;
 	
-	// private List<Review> reviews = new ArrayList<>();
+	private List<Review> reviews = new ArrayList<>();
 	
 	public MealDTO() {
 	}
@@ -21,7 +22,7 @@ public class MealDTO {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		// this.reviews = reviews;
+		this.reviews = reviews;
 	}
 	
 	public MealDTO(Meal meal) {
@@ -54,11 +55,7 @@ public class MealDTO {
 		this.description = description;
 	}
 
-	//public List<Review> getReviews() {
-	//	return reviews;
-	//}
-
-	//public void setReviews(List<Review> reviews) {
-	//	this.reviews = reviews;
-	//}
+	public List<Review> getReviews() {
+		return reviews;
+	}
 }

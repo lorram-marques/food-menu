@@ -64,6 +64,13 @@ public class Review {
 		this.body = body;
 	}
 
+	public Meal getMeal() {
+		return meal;
+	}
+	
+	public void setMeal(Meal meal) {
+		this.meal = meal;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
