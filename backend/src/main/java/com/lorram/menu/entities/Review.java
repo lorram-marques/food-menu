@@ -1,5 +1,6 @@
 package com.lorram.menu.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -13,7 +14,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_review")
-public class Review {
+public class Review implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,6 +72,14 @@ public class Review {
 	
 	public void setMeal(Meal meal) {
 		this.meal = meal;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 	@Override
 	public int hashCode() {

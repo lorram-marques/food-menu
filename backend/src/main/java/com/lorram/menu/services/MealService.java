@@ -66,5 +66,6 @@ public class MealService{
 	
 	private void fromDto(MealDTO mealDto, Meal meal) {
 		meal.setName(mealDto.getName());
+		meal.setDescription(mealDto.getDescription());
 	}
 }

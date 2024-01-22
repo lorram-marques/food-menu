@@ -16,11 +16,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
 	private JwtTokenStore tokenStore;
 	
-	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**", "/menu/**" };
+	private static final String[] PUBLIC_AUTH = { "/oauth/token", "/h2-console/**" };
 	
-	private static final String[] OPERATOR_OR_ADMIN = { "/menu/**" };
+	private static final String[] PUBLIC_GET = { "/menu", "/menu/**/reviews" };
 	
-	private static final String[] ADMIN = { "/users/**", "/menu/reviews" };	
+	private static final String[] OPERATOR = { "/menu/**/reviews" };
+	
+	private static final String[] ADMIN = { "/users/**", "/menu/reviews", "/menu/**" };	
 	
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -31,9 +33,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests(requests -> requests
-                .antMatchers(PUBLIC).permitAll()
-                .antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()
-                .antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("OPERATOR", "ADMIN")
+                .antMatchers(PUBLIC_AUTH).permitAll()
+                .antMatchers(HttpMethod.GET, PUBLIC_GET).permitAll()
+                .antMatchers(HttpMethod.POST, OPERATOR).hasRole("OPERATOR")
                 .antMatchers(ADMIN).hasRole("ADMIN")
                 .anyRequest().authenticated());
 	}	

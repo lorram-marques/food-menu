@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lorram.menu.dto.MealDTO;
 import com.lorram.menu.dto.ReviewDTO;
-import com.lorram.menu.entities.Meal;
 import com.lorram.menu.services.MealService;
 import com.lorram.menu.services.ReviewService;
 
@@ -91,12 +90,6 @@ public class MenuController {
 		ReviewDTO review = reviewService.insert(id, dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(review.getId()).toUri();
 		return ResponseEntity.created(uri).body(review);
-	}
-	
-	@PutMapping(value = "/reviewid/{id}")
-	public ResponseEntity<ReviewDTO> updateReview(@PathVariable Long id, @RequestBody ReviewDTO dto) {
-		ReviewDTO review = reviewService.update(id, dto);
-		return ResponseEntity.ok().body(review);
 	}
 	
 	@DeleteMapping(value = "/reviewid/{id}")
